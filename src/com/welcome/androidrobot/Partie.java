@@ -29,7 +29,7 @@ public class Partie extends Screen{
 	int nbCoups = 0;
 	int annonce = 0;
 	Joueur[] joueurs = new Joueur[3];
-	boolean firstTime;
+	boolean firstTime=true;
 	boolean succes = false;
 
 	public Partie(Game game) {
@@ -133,11 +133,6 @@ public class Partie extends Screen{
 		startTimer = System.nanoTime();
 	}
 
-	public void jouer(){
-		mode = Etat.JOUER;
-		nbCoups = 0;
-	}
-
 	public int calculerDirection(Case c){
 		int I = c.i-pionSelectionne.i;
 		int J = c.j-pionSelectionne.j;
@@ -206,7 +201,7 @@ public class Partie extends Screen{
 
 		//Update bars
 		this.topbar.update(events);
-		if(mode!=Etat.ANNONCE && mode!=Etat.JOUER){
+		if(mode!=Etat.ANNONCE && mode!=Etat.JOUER && mode!=Etat.REINIT){
 			bottomBar.maj();
 			bottomBar.update(events);
 		}else if(mode==Etat.ANNONCE){
@@ -215,6 +210,7 @@ public class Partie extends Screen{
 			jouerBar.maj();
 			jouerBar.update(events);
 		}else if(mode == Etat.REINIT){
+			
 			reinit();
 		}
 		this.plateau.update(events);
@@ -223,11 +219,16 @@ public class Partie extends Screen{
 		startTimer = System.nanoTime();
 		mode = Etat.REFLEXION;
 		firstTime = true;
+		annonce = 0;
+		nbCoups = 0;
 		if(succes){
 			this.joueurCourant.score++;
 		}else{
 			this.joueurCourant.score--;
 		}
+		joueurCourant = null;
+		this.remainingTime = 0;
+		tirerObjectif();
 	}
 
 	@Override
@@ -249,6 +250,7 @@ public class Partie extends Screen{
 		this.paintObjectif(g);
 		plateau.paintSymbole(g);
 	}
+	
 	
 	public void paintObjectif(Graphics g){
 		Case c = plateau.cases[Assets.nColonnes/2-1][Assets.nColonnes/2-1];

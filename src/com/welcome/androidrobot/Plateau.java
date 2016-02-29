@@ -128,7 +128,7 @@ public class Plateau {
 					}
 					if(directionValide){
 						deplacement=true;
-						System.out.println("Deplacement activé vers "+directionDeplacement);
+						
 						cases[partie.pionSelectionne.i][partie.pionSelectionne.j].estOccupe = false;
 						//Memorisation des positions précédentes
 						for(Pion pion : pions){
