@@ -63,7 +63,7 @@ public class Robots extends AndroidGame {
     	Assets.optionSizeY = Assets.resY - Assets.optionStartY;
     	
 
-        Assets.paint.setTextSize(60);
+        Assets.paint.setTextSize(40);
         Assets.paint.setTextAlign(Paint.Align.CENTER);
         Assets.paint.setAntiAlias(true);
         Assets.paint.setColor(Color.WHITE);
