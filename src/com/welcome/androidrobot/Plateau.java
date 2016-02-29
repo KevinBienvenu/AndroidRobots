@@ -64,20 +64,9 @@ public class Plateau {
 	}
 
 	public void update(Vector<Event> events){
-		
-		if(partie.mode == 0){
 			
-		}
-		if(partie.mode == 1){
-			
-		}
-		if(partie.mode == 2){
-			
-		}
-		
-		if(partie.mode == 3){
+		if(partie.mode == Etat.JOUER){
 			jouer(events);
-			
 		}
 	}
 	

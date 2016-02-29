@@ -7,7 +7,7 @@ import com.welcome.framework.implementation.Event;
 
 public class SelectionBar {
 	
-	public Bouton[] boutons = new Bouton[3];
+	public Bouton[] boutons = new Bouton[4];
 	int nbCoups;
 	Partie partie;
 	
