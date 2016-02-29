@@ -11,8 +11,8 @@ public class Pion {
 	public int id;
 	int i;
 	int j;
-	Vector<Integer>iPrecedent;
-	Vector<Integer>jPrecedent;
+	Vector<Integer>iPrecedent = new Vector<Integer>();
+	Vector<Integer>jPrecedent = new Vector<Integer>();
 	
 	public Pion(int i , int j, int id){
 		this.i = i;

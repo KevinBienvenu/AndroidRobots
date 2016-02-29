@@ -12,6 +12,7 @@ public class Case {
 	public int x,y,taille;
 	public int couleur;
 	public boolean active;
+	public boolean estOccupe;
 	
 	public Case(int i, int j, boolean[] murs,int symbole){
 		this.i = i;
