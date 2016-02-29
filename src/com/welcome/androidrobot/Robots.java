@@ -54,10 +54,10 @@ public class Robots extends AndroidGame {
         Assets.resY = Math.max(x,y);
         
         Assets.tailleCase = Assets.resX / Assets.nColonnes;
-
+        Assets.boardStartX = (Assets.resX-Assets.tailleCase*Assets.nColonnes)/2;
     	Assets.barSizeY = Assets.resY/15;
     	Assets.barStartY = 0;
-    	Assets.boardStartY = Assets.barSizeY;
+    	Assets.boardStartY = Assets.barSizeY+Assets.boardStartX;
     	Assets.boardSizeY = Assets.resX;
     	Assets.optionStartY = Assets.boardStartY + Assets.boardSizeY;
     	Assets.optionSizeY = Assets.resY - Assets.optionStartY;

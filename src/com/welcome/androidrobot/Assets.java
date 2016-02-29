@@ -17,6 +17,7 @@ public class Assets {
 	// GameScreen
 	public static int barSizeY;
 	public static int barStartY;
+	public static int boardStartX;
 	public static int boardStartY;
 	public static int boardSizeY;
 	public static int optionStartY;

@@ -19,7 +19,7 @@ public class Case {
 		this.j = j;
 		this.symbole = symbole;
 		this.murs = murs;
-		x = j*Assets.tailleCase;
+		x = j*Assets.tailleCase + Assets.boardStartX;
 		y = i*Assets.tailleCase + Assets.boardStartY;
 		taille = Assets.tailleCase;
 		if((i+j)%2==0){
@@ -30,13 +30,14 @@ public class Case {
 		// Si symbole = 0 pas de symboles;
 	}
 	public boolean peutDeplacer(int dir){
-		return !estOccupe && murs[(dir+2)%4]; 
+		System.out.println(!estOccupe + " " +!murs[(dir+2)%4]);
+		return !estOccupe && !murs[(dir+2)%4]; 
 	}
 	public void paint(Graphics g){
 		g.fillRect(x, y, taille, taille, couleur);
 		g.drawRect(x, y, taille, taille, Color.DKGRAY);
 		if(murs[0]){
-			g.fillRect(x+taille, y, (int)(-taille*Assets.ratioMur), taille, Color.BLACK);
+			g.fillRect(x+taille-(int)(taille*Assets.ratioMur), y, (int)(taille*Assets.ratioMur), taille, Color.BLACK);
 		}
 		if(murs[2]){
 			g.fillRect(x, y, (int) (taille*Assets.ratioMur), taille, Color.BLACK);
@@ -45,7 +46,7 @@ public class Case {
 			g.fillRect(x, y, taille, (int) (taille*Assets.ratioMur), Color.BLACK);
 		}
 		if(murs[3]){
-			g.fillRect(x, y+taille, taille, (int) (-taille*Assets.ratioMur), Color.BLACK);
+			g.fillRect(x, y+taille-(int) (taille*Assets.ratioMur), taille, (int) (taille*Assets.ratioMur), Color.BLACK);
 		}
 	}
 	

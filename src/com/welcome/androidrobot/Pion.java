@@ -50,14 +50,5 @@ public class Pion {
 		g.fillOval(x, y, (int)(Assets.tailleCase*Assets.ratioPion), (int)(Assets.tailleCase*Assets.ratioPion), couleur);
 		g.drawOval(x, y, (int)(Assets.tailleCase*Assets.ratioPion), (int)(Assets.tailleCase*Assets.ratioPion), Color.BLACK);
 	}
-	
-	public void update(){
-		
-		
-	}
-	
-	public void deplacer(int dir){
-		//TODO : Philippe
-		
-	}
+
 }

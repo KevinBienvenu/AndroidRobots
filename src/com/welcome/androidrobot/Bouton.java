@@ -27,10 +27,11 @@ public abstract class Bouton {
 	public abstract void callback();
 	
 	public void paint(Graphics g){
+		g.fillRect(x, y, sizeX, sizeY, Color.WHITE);
 		if(touchDown){
-			g.fillRect(x, y, sizeX, sizeY, Color.GRAY);
+			g.fillRect(x+5, y+5, sizeX-10, sizeY-10, Color.GRAY);
 		} else {
-			g.fillRect(x, y, sizeX, sizeY, Color.DKGRAY);
+			g.fillRect(x+5, y+5, sizeX-10, sizeY-10, Color.DKGRAY);
 		}
 		g.drawString(string, x+sizeX/2, y+2*sizeY/3, Assets.paint);
 	}

@@ -36,7 +36,7 @@ public class Partie extends Screen{
 	public void deplacer(Pion p , int dir){
 		plateau.cases[p.i][p.j].estOccupe = false;
 
-		boolean hasMoved = true;
+		boolean hasMoved = false;
 		//Memorisation des positions précédentes
 		for(Pion pion : plateau.pions){
 			pion.iPrecedent.add(pion.i);
@@ -50,21 +50,21 @@ public class Partie extends Screen{
 		}
 		else if(dir == Direction.OUEST){
 
-			while(p.j-1>=0 && !plateau.cases[p.i][p.j-1].peutDeplacer(dir)){
+			while(p.j-1>=0 && plateau.cases[p.i][p.j-1].peutDeplacer(dir)){
 				p.j--;
 				hasMoved = true;
 			}
 		}
 		else if(dir == Direction.NORD){
 
-			while(p.i-1>=0 && !plateau.cases[p.i-1][p.j].peutDeplacer(dir)){
+			while(p.i-1>=0 && plateau.cases[p.i-1][p.j].peutDeplacer(dir)){
 				p.i--;
 				hasMoved = true;
 			}
 		}
 		else if(dir == Direction.SUD){
 
-			while(p.i+1<plateau.cases[0].length && !plateau.cases[p.i+1][p.j].peutDeplacer(dir)){
+			while(p.i+1<plateau.cases[0].length && plateau.cases[p.i+1][p.j].peutDeplacer(dir)){
 				p.i++;
 				hasMoved = true;
 			}
@@ -74,6 +74,7 @@ public class Partie extends Screen{
 			nbCoups++;
 		}
 	}
+	
 	public void back(){
 		for(Case[] ca : plateau.cases){
 			for(Case c : ca){
@@ -110,16 +111,16 @@ public class Partie extends Screen{
 		if(Y>0 && Math.abs(Y)>Math.abs(X)){
 			return Direction.NORD;
 		}
-		if(Y<=0 && Math.abs(Y)>Math.abs(X)){
+		if(Y<0 && Math.abs(Y)>Math.abs(X)){
 			return Direction.SUD;
 		}
 		if(X>0 && Math.abs(Y)<=Math.abs(X)){
 			return Direction.EST;
 		}
-		if(X<=0 && Math.abs(Y)<=Math.abs(X)){
+		if(X<0 && Math.abs(Y)<=Math.abs(X)){
 			return Direction.OUEST;
 		}
-		return 0;
+		return -1;
 
 	}
 	Pion avoirPion(Case c){
