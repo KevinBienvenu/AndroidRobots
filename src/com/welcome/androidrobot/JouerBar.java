@@ -13,7 +13,7 @@ public class JouerBar {
 	
 	public JouerBar(Partie p){
 		this.partie = p;
-		boutons[0] = new Bouton(0,Assets.optionStartY,Assets.resX,Assets.optionSizeY/2,"Joueur : "+partie.joueurCourant){
+		boutons[0] = new Bouton(0,Assets.optionStartY,Assets.resX,Assets.optionSizeY/2,"Joueur : "+partie.joueurCourant.nom){
 			@Override
 			public void callback() {
 				

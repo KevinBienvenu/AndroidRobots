@@ -98,6 +98,10 @@ public class Plateau {
 						}
 					}
 					this.partie.nbCoups++;
+					if(partie.nbCoups>partie.annonce){
+						partie.succes = false;
+						partie.mode = Etat.REINIT;
+					}
 				}
 			}
 

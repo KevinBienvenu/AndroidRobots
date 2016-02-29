@@ -29,7 +29,9 @@ public class Partie extends Screen{
 	int nbCoups = 0;
 	int annonce = 0;
 	Joueur[] joueurs = new Joueur[3];
-
+	
+	boolean succes = false;
+	
 	public Partie(Game game) {
 		super(game);
 		String[] nom = new String[]{"Florian","Kevin","Callebouille"};
@@ -106,10 +108,14 @@ public class Partie extends Screen{
 	}
 	public void arreter(int idJoueur){
 		mode = Etat.ANNONCE;
+		joueurCourant = joueurs[idJoueur];
 	}
 	public void reprendre(){
 		mode= Etat.REFLEXION;
 		annonce = selectionBar.nbCoups;
+		if(annonce==1){
+			mode = Etat.JOUER;
+		}
 	}
 
 	public void jouer(){
