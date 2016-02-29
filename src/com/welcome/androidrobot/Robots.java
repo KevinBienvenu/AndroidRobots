@@ -61,7 +61,6 @@ public class Robots extends AndroidGame {
     	Assets.boardSizeY = Assets.resX;
     	Assets.optionStartY = Assets.boardStartY + Assets.boardSizeY;
     	Assets.optionSizeY = Assets.resY - Assets.optionStartY;
-    	
 
         Assets.paint.setTextSize(60);
         Assets.paint.setTextAlign(Paint.Align.CENTER);

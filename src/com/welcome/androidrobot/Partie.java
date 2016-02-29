@@ -13,22 +13,27 @@ import android.graphics.Color;
 
 public class Partie extends Screen{
     int compteur ;
-    long timer;
-
+    long startTimer;
+    int remainingTime;
+    //mode reflexion (0) ou annonce (1) (2) = jouer (3) = compter Score reinit
+    int mode  = 0;
     Plateau plateau;
     TopBar topbar;
-
+    BottomBar bottomBar;
+    SelectionBar selectionBar;
     Objectif objectifCourant;
     Pion pionSelectionne;
     Case caseSelectionne;
     int nbCoups = 0;
-
-
+    int annonce = 0;
+    Joueur[] joueurs = new Joueur[3];
+    
     public Partie(Game game) {
         super(game);
         plateau = new Plateau(this);
         topbar = new TopBar(this);
-
+        bottomBar = new BottomBar(this);
+        selectionBar = new SelectionBar(this);
     }
     public void tirerObjectif(){
 
@@ -57,6 +62,7 @@ public class Partie extends Screen{
         else if(dir == Direction.SUD){
             if(p.i+1<plateau.cases[0].length && plateau.cases[p.i+1][p.j].peutDeplacer(dir)){
                 p.i++;
+                return true;
             }
         }
         plateau.cases[p.i][p.j].estOccupe = true;
@@ -90,6 +96,18 @@ public class Partie extends Screen{
             plateau.cases[p.i][p.j].estOccupe = true;
         }
         nbCoups = 0;
+    }
+    public void arreter(int idJoueur){
+    	mode = Etat.ANNONCE;
+    }
+    public void reprendre(){
+    	mode= Etat.REFLEXION;
+    	annonce = selectionBar.nbCoups;
+    }
+    
+    public void jouer(){
+    	mode = Etat.JOUER;
+    	nbCoups = 0;
     }
 
     public int calculerDirection(Case c){
@@ -149,9 +167,28 @@ public class Partie extends Screen{
         for(TouchEvent t : listEvents){
         	events.add(new Event(t));
         }
+        //CALCULATE TIMER
+        long time = System.nanoTime();
+        remainingTime = (int)((time-startTimer)*1e-9);
+        if(remainingTime>=Assets.remainingTime){
+        	annonce = 
+        	mode = Etat.JOUER;
+        }
+        //Update bars
+        bottomBar.maj();
+        
         this.topbar.update(events);
+        if(mode!=1){
+        	bottomBar.update(events);
+        }else{
+        	selectionBar.update(events);
+        }
         this.plateau.update(events);
        
+    }
+    public void reinit(){
+    	startTimer = System.nanoTime();
+    	mode = Etat.REFLEXION;
     }
 
     @Override
@@ -168,6 +205,7 @@ Assets.optionSizeY, Color.WHITE);
 Assets.optionSizeY/2+Assets.optionStartY, Assets.paint);
         plateau.paint(g);
         topbar.paint(g);
+        bottomBar.paint(g);
     }
 
     @Override

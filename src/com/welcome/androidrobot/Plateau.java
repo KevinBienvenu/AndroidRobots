@@ -13,11 +13,11 @@ public class Plateau {
 	public Case[][] cases = new Case[Assets.nLignes][Assets.nColonnes];
 	public Pion[] pions = new Pion[5];
 
-    //ANIMATION
-    int charge = 0;
-    int directionDeplacement = 0;
-    boolean deplacement = false;
-    
+	//ANIMATION
+	int charge = 0;
+	int directionDeplacement = 0;
+	boolean deplacement = false;
+
 	public void paint(Graphics g){
 		for(int i=0; i<Assets.nLignes; i++){
 			for(int j=0; j<Assets.nColonnes; j++){
@@ -72,9 +72,26 @@ public class Plateau {
 	}
 
 	public void update(Vector<Event> events){
-		for(Event e : events){
-
-			if(!deplacement){
+		
+		if(partie.mode == 0){
+			
+		}
+		if(partie.mode == 1){
+			
+		}
+		if(partie.mode == 2){
+			
+		}
+		
+		if(partie.mode == 3){
+			jouer(events);
+			
+		}
+	}
+	
+	public void jouer(Vector<Event> events){
+		if(!deplacement){
+			for(Event e : events){
 				if(e.isDown){
 					//SELECTION
 					partie.caseSelectionne = partie.selection(e.x,e.y);
@@ -91,27 +108,30 @@ public class Plateau {
 					if(c!=null){
 						directionDeplacement = partie.calculerDirection(c);
 						deplacement=true;
+						System.out.println("Deplacement activé vers "+directionDeplacement);
 						cases[partie.pionSelectionne.i][partie.pionSelectionne.j].estOccupe = false;
 						//Memorisation des positions précédentes
 						for(Pion pion : pions){
 							pion.iPrecedent.add(pion.i);
 							pion.jPrecedent.add(pion.j);
 						}
-
 					}
+					this.partie.nbCoups++;
 				}
 			}
-			else if(charge>10){
 
-				deplacement = partie.deplacer(partie.pionSelectionne,directionDeplacement);
-				charge = 0;
-				if(!deplacement){
-					partie.pionSelectionne = null;
-					partie.caseSelectionne = null;
-				}
-			}else if(charge<10){
-				charge++;
+		}
+		else if(charge>=1){
+
+			deplacement = partie.deplacer(partie.pionSelectionne,directionDeplacement);
+			charge = 0;
+			if(!deplacement){
+				partie.pionSelectionne = null;
+				partie.caseSelectionne = null;
 			}
+		}else if(charge<1){
+			charge++;
+			
 		}
 	}
 
