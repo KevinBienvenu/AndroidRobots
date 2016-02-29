@@ -3,15 +3,21 @@ package com.welcome.androidrobot;
 import java.util.Vector;
 
 import com.welcome.framework.Graphics;
+import com.welcome.framework.Input.TouchEvent;
 import com.welcome.framework.implementation.Event;
 
 public class Plateau {
 
 	public Partie partie;
-	
+
 	public Case[][] cases = new Case[Assets.nLignes][Assets.nColonnes];
 	public Pion[] pions = new Pion[5];
-	
+
+    //ANIMATION
+    int charge = 0;
+    int directionDeplacement = 0;
+    boolean deplacement = false;
+    
 	public void paint(Graphics g){
 		for(int i=0; i<Assets.nLignes; i++){
 			for(int j=0; j<Assets.nColonnes; j++){
@@ -67,24 +73,44 @@ public class Plateau {
 
 	public void update(Vector<Event> events){
 		for(Event e : events){
-			if(e.isDown){
-				//SELECTION
-				partie.caseSelectionne = partie.selection(e.x,e.y);
-				if(this.partie.pionSelectionne==null){
-					partie.pionSelectionne = partie.avoirPion(partie.caseSelectionne);
+
+			if(!deplacement){
+				if(e.isDown){
+					//SELECTION
+					partie.caseSelectionne = partie.selection(e.x,e.y);
+					if(partie.pionSelectionne==null){
+						partie.pionSelectionne = partie.avoirPion(partie.caseSelectionne);
+					}
+
+				}
+				if(e.isUp){
+					if(partie.pionSelectionne==null){
+						return;
+					}
+					Case c = partie.selection(e.x,e.y);
+					if(c!=null){
+						directionDeplacement = partie.calculerDirection(c);
+						deplacement=true;
+						cases[partie.pionSelectionne.i][partie.pionSelectionne.j].estOccupe = false;
+						//Memorisation des positions précédentes
+						for(Pion pion : pions){
+							pion.iPrecedent.add(pion.i);
+							pion.jPrecedent.add(pion.j);
+						}
+
+					}
 				}
 			}
-			if(e.isUp){
-				if(partie.pionSelectionne==null){
-					return;
-				}
-				Case c = partie.selection(e.x,e.y);
-				if(c!=null){
-					int dir = partie.calculerDirection(c);
-					partie.deplacer(partie.pionSelectionne,dir);
+			else if(charge>10){
+
+				deplacement = partie.deplacer(partie.pionSelectionne,directionDeplacement);
+				charge = 0;
+				if(!deplacement){
 					partie.pionSelectionne = null;
 					partie.caseSelectionne = null;
 				}
+			}else if(charge<10){
+				charge++;
 			}
 		}
 	}
