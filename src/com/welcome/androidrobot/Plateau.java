@@ -43,6 +43,10 @@ public class Plateau {
 				cases[i][j] = new Case(i,j,murs,0);
 			}
 		}
+		for(Pion p : this.pions){
+			p.reset();
+			cases[p.i][p.j].estOccupe = true;
+		}
 	}
 
 	public void update(){

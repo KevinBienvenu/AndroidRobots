@@ -20,6 +20,7 @@ public class Partie extends Screen{
 	public Partie(Game game) {
         super(game);
 		plateau = new Plateau();
+
 	}
 	public void tirerObjectif(){
 		
@@ -63,6 +64,7 @@ public class Partie extends Screen{
 				hasMoved = true;
 			}
 		}
+		
 		plateau.cases[p.i][p.j].estOccupe = true;
 		if(hasMoved){
 			nbCoups++;
@@ -114,6 +116,7 @@ public class Partie extends Screen{
 			return Direction.OUEST;
 		}
 		return 0;
+		
 	}
 	private Pion avoirPion(Case c){
 		if(c==null){
