@@ -15,6 +15,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 public class AndroidGraphics implements Graphics {
     AssetManager assets;
@@ -101,6 +102,21 @@ public class AndroidGraphics implements Graphics {
         paint.setColor(color);
         paint.setStyle(Style.FILL);
         canvas.drawRect(x, y, x + width - 1, y + height - 1, paint);
+    }
+    
+    @Override
+    public void drawOval(int x, int y, int width, int height, int color) {
+        paint.setColor(color);
+        paint.setStyle(Style.STROKE);
+        canvas.drawOval(new RectF(x, y, x + width - 1, y + height - 1), paint);
+    }
+    
+
+    @Override
+    public void fillOval(int x, int y, int width, int height, int color) {
+        paint.setColor(color);
+        paint.setStyle(Style.FILL);
+        canvas.drawOval(new RectF(x, y, x + width - 1, y + height - 1), paint);
     }
     
     @Override

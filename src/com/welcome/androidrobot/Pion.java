@@ -7,7 +7,7 @@ import com.welcome.framework.Graphics;
 import android.graphics.Color;
 
 public class Pion {
-	Color couleur;
+	int couleur;
 	public int id;
 	int i;
 	int j;
@@ -18,6 +18,14 @@ public class Pion {
 		this.i = i;
 		this.j = j;
 		this.id = id;
+		switch(id){
+		case 0 : couleur = Color.BLACK; break;
+		case 1 : couleur = Color.RED; break;
+		case 2 : couleur = Color.GREEN; break;
+		case 3 : couleur = Color.BLUE; break;
+		case 4 : couleur = Color.YELLOW; break;
+		default: 
+		}
 	}
 	
 	public void revenirEnArriere(){
@@ -29,8 +37,9 @@ public class Pion {
 	}
 	public void paint(Graphics g){
 		int x = Assets.tailleCase*j+(int)(Assets.tailleCase*(1f-Assets.ratioPion));
-		int y = Assets.boardStartY + i*Assets.tailleCase+4;
-		
+		int y = Assets.boardStartY + i*Assets.tailleCase+(int)(Assets.tailleCase*(1f-Assets.ratioPion));
+		g.fillOval(x, y, (int)(Assets.tailleCase*Assets.ratioPion), (int)(Assets.tailleCase*Assets.ratioPion), couleur);
+		g.drawOval(x, y, (int)(Assets.tailleCase*Assets.ratioPion), (int)(Assets.tailleCase*Assets.ratioPion), Color.BLACK);
 	}
 	
 	public void update(){
