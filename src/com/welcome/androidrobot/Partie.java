@@ -178,17 +178,18 @@ public class Partie extends Screen{
 					if(c!=null){
 						directionDeplacement = calculerDirection(c);
 						deplacement=true;
+						plateau.cases[pionSelectionne.i][pionSelectionne.j].estOccupe = false;
+						//Memorisation des positions précédentes
+						for(Pion pion : plateau.pions){
+							pion.iPrecedent.add(pion.i);
+							pion.jPrecedent.add(pion.j);
+						}
 
 					}
 				}
 			}
 			else if(charge>10){
-				plateau.cases[pionSelectionne.i][pionSelectionne.j].estOccupe = false;
-				//Memorisation des positions précédentes
-				for(Pion pion : plateau.pions){
-					pion.iPrecedent.add(pion.i);
-					pion.jPrecedent.add(pion.j);
-				}
+
 				deplacement = deplacer(this.pionSelectionne,directionDeplacement);
 				charge = 0;
 				if(!deplacement){
