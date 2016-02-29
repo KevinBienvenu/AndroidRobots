@@ -53,6 +53,10 @@ public class Plateau {
 			cases[k][l].murs[1] = true;
 			cases[k-1][l].murs[3] = true;
 		}
+		for(Pion p : this.pions){
+			p.reset();
+			cases[p.i][p.j].estOccupe = true;
+		}
 	}
 
 	public void update(){

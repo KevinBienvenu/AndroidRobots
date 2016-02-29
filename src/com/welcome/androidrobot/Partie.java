@@ -1,11 +1,13 @@
 package com.welcome.androidrobot;
 
 import java.util.List;
+import java.util.Vector;
 
 import com.welcome.framework.Game;
 import com.welcome.framework.Graphics;
 import com.welcome.framework.Input.TouchEvent;
 import com.welcome.framework.Screen;
+import com.welcome.framework.implementation.Event;
 
 import android.graphics.Color;
 
@@ -25,7 +27,7 @@ public class Partie extends Screen{
         super(game);
 		plateau = new Plateau();
 		topbar = new TopBar(this);
-		
+
 	}
 	public void tirerObjectif(){
 		
@@ -69,6 +71,7 @@ public class Partie extends Screen{
 				hasMoved = true;
 			}
 		}
+		
 		plateau.cases[p.i][p.j].estOccupe = true;
 		if(hasMoved){
 			nbCoups++;
@@ -120,6 +123,7 @@ public class Partie extends Screen{
 			return Direction.OUEST;
 		}
 		return 0;
+		
 	}
 	private Pion avoirPion(Case c){
 		if(c==null){
@@ -151,9 +155,10 @@ public class Partie extends Screen{
 	
 	@Override
 	public void update(float deltaTime) {
-		List<TouchEvent> events = game.getInput().getTouchEvents();
-		this.topbar.update(events);
-		for(TouchEvent e : events){
+		List<TouchEvent> listEvents = game.getInput().getTouchEvents();
+		Vector<Event> events = new Vector<Event>();
+		this.topbar.update(listEvents);
+		for(TouchEvent e : listEvents){
 			if(e.type==TouchEvent.TOUCH_DRAGGED){
 				
 			}
