@@ -13,7 +13,7 @@ public class Case {
 	public int couleur;
 	public boolean active;
 	public boolean estOccupe;
-	
+
 	public Case(int i, int j, boolean[] murs,int symbole){
 		this.i = i;
 		this.j = j;
@@ -33,32 +33,39 @@ public class Case {
 		return !estOccupe && !murs[(dir+2)%4]; 
 	}
 	public void paint(Graphics g){
-		g.fillRect(x, y, taille, taille, couleur);
-		g.drawRect(x, y, taille, taille, Color.DKGRAY);
-		if(murs[0]){
-			g.fillRect(x+taille-(int)(taille*Assets.ratioMur), y, (int)(taille*Assets.ratioMur), taille, Color.BLACK);
-		}
-		if(murs[2]){
-			g.fillRect(x, y, (int) (taille*Assets.ratioMur), taille, Color.BLACK);
-		}
-		if(murs[1]){
-			g.fillRect(x, y, taille, (int) (taille*Assets.ratioMur), Color.BLACK);
-		}
-		if(murs[3]){
-			g.fillRect(x, y+taille-(int) (taille*Assets.ratioMur), taille, (int) (taille*Assets.ratioMur), Color.BLACK);
+		if(this.active){
+			g.fillRect(x, y, taille, taille, Color.BLACK);
+		} else {
+			g.fillRect(x, y, taille, taille, couleur);
+			g.drawRect(x, y, taille, taille, Color.DKGRAY);
+			if(murs[0]){
+				g.fillRect(x+taille-(int)(taille*Assets.ratioMur), y, (int)(taille*Assets.ratioMur), taille, Color.BLACK);
+			}
+			if(murs[2]){
+				g.fillRect(x, y, (int) (taille*Assets.ratioMur), taille, Color.BLACK);
+			}
+			if(murs[1]){
+				g.fillRect(x, y, taille, (int) (taille*Assets.ratioMur), Color.BLACK);
+			}
+			if(murs[3]){
+				g.fillRect(x, y+taille-(int) (taille*Assets.ratioMur), taille, (int) (taille*Assets.ratioMur), Color.BLACK);
+			}
+			if(symbole>0){
+				g.drawImage(Assets.symboles.get(symbole-1), x, y, Assets.tailleCase);
+			}
 		}
 	}
-	
+
 	public boolean estDansCase(int a, int b){
 		return a>x && a<x+taille && b>y && b<y+taille;
 	}
-	
-	
+
+
 	public void update(){
-		
-		
+
+
 	}
-	
+
 	public void mettreMur(boolean[] murs){
 		this.murs  = murs;
 	}

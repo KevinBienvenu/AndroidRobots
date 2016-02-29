@@ -1,9 +1,10 @@
 package com.welcome.androidrobot;
 
+import java.util.Vector;
+
 import com.welcome.framework.Image;
 import com.welcome.framework.Sound;
 
-import android.graphics.Color;
 import android.graphics.Paint;
 
 public class Assets {
@@ -36,6 +37,10 @@ public class Assets {
 	// Images
 
     public static Image menu;
+    
+    // Symboles
+    
+    public static Vector<Image> symboles;
     
     // Sounds
     
