@@ -13,7 +13,7 @@ import android.graphics.Color;
 
 public class Partie extends Screen{
     int compteur ;
-    long startTimer;
+    long startTimer=System.nanoTime();
     int remainingTime;
     //mode reflexion (0) ou annonce (1) (2) = jouer (3) = compter Score reinit
     int mode  = 0;
