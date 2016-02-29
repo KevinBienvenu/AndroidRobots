@@ -25,7 +25,7 @@ public class Objectif {
 	
 	public Objectif(){
 		this.idPion = (int) (Math.random()*Assets.nbPions-1)+1;
-		this.idSymbole = (int) (Math.random()*Assets.nbSymboles);
+		this.idSymbole = (int) (Math.random()*Assets.nbSymboles)+1;
 		switch(idPion){
 		case 0 : couleur = Color.BLACK; break;
 		case 1 : couleur = Color.RED; break;

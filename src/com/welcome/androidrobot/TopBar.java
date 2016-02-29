@@ -5,6 +5,8 @@ import java.util.Vector;
 import com.welcome.framework.Graphics;
 import com.welcome.framework.implementation.Event;
 
+import android.graphics.Color;
+
 public class TopBar {
 	
 	public Bouton[] boutons = new Bouton[3];
@@ -35,6 +37,7 @@ public class TopBar {
 	}
 
 	public void paint(Graphics g){
+		g.fillRect(0, Assets.barStartY, Assets.resX, Assets.barSizeY,Color.BLACK);
 		for(int i=0; i<boutons.length; i++){
 			boutons[i].paint(g);
 		}

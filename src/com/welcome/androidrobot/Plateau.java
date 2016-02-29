@@ -16,7 +16,12 @@ public class Plateau {
 	//ANIMATION
 	int charge = 0;
 	int directionDeplacement = 0;
+	boolean directionValide = false;
 	boolean deplacement = false;
+
+	// SELECTION
+	public int chargeSelection = 0;
+	public static int maxChargeSelection = 15;
 
 	public void paint(Graphics g){
 		for(int i=0; i<Assets.nLignes; i++){
@@ -27,8 +32,21 @@ public class Plateau {
 		for(int i=0; i<5; i++){
 			pions[i].paint(g);
 		}
+
+		// AFFICHAGE SELECTION
+		if(partie.pionSelectionne!=null){
+			Pion p = partie.pionSelectionne;
+			int x = Assets.tailleCase*p.j+(int)(Assets.tailleCase*(1f-Assets.ratioPion))+Assets.tailleCase/2;
+			int y = Assets.boardStartY + p.i*Assets.tailleCase+(int)(Assets.tailleCase*(1f-Assets.ratioPion))+Assets.tailleCase/2;
+			int t = 2*Assets.tailleCase*chargeSelection/maxChargeSelection;
+			if(directionValide){
+				g.fillArc(x-t, y-t, 2*t, 2*t, directionDeplacement*90, 90,  p.couleur, 100);
+			} else {
+				g.fillOval(x-t, y-t, 2*t, 2*t, p.couleur, 100);
+			}
+		}
 	}
-	
+
 	public void paintSymbole(Graphics g){
 		Case c;
 		for(int i=0; i<Assets.nLignes; i++){
@@ -77,12 +95,12 @@ public class Plateau {
 	}
 
 	public void update(Vector<Event> events){
-			
+
 		if(partie.mode == Etat.JOUER){
 			jouer(events);
 		}
 	}
-	
+
 	public void jouer(Vector<Event> events){
 		if(!deplacement){
 			for(Event e : events){
@@ -94,13 +112,21 @@ public class Plateau {
 					}
 
 				}
+				Case c = partie.selection(e.x,e.y);
+				if(c!=null){
+					directionDeplacement = partie.calculerDirection(c);
+					if((c.i-partie.pionSelectionne.i)*(c.i-partie.pionSelectionne.i)+
+							(c.j-partie.pionSelectionne.j)*(c.j-partie.pionSelectionne.j)>2*Assets.tailleCase){
+						directionValide = true;
+					} else {
+						directionValide = false;
+					}
+				}
 				if(e.isUp){
 					if(partie.pionSelectionne==null){
 						return;
 					}
-					Case c = partie.selection(e.x,e.y);
-					if(c!=null){
-						directionDeplacement = partie.calculerDirection(c);
+					if(directionValide){
 						deplacement=true;
 						
 						cases[partie.pionSelectionne.i][partie.pionSelectionne.j].estOccupe = false;
@@ -110,13 +136,15 @@ public class Plateau {
 							pion.jPrecedent.add(pion.j);
 						}
 						this.partie.nbCoups++;
-						if(partie.nbCoups>=partie.annonce){
+						if(partie.nbCoups>partie.annonce){
 							partie.succes = false;
 							partie.mode = Etat.REINIT;
-							partie.reinit();
 						}
 					}
-
+				}
+				// SELECTION
+				if(partie.pionSelectionne!=null){
+					chargeSelection = Math.min(chargeSelection+1, maxChargeSelection);
 				}
 			}
 
@@ -131,7 +159,7 @@ public class Plateau {
 			}
 		}else if(charge<1){
 			charge++;
-			
+
 		}
 	}
 

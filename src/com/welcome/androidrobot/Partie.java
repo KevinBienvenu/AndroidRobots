@@ -235,10 +235,9 @@ public class Partie extends Screen{
 	public void paint(float deltaTime) {
 		Graphics g = game.getGraphics();
 		g.fillRect(0, 0, Assets.resX, Assets.resY, Color.DKGRAY);
-		g.fillRect(0, Assets.barStartY, Assets.resX, Assets.barSizeY,Color.BLACK);
 		g.drawLine(0, Assets.barSizeY, Assets.resX, Assets.barSizeY, Color.WHITE);
 		g.drawRect(0, Assets.optionStartY, Assets.resX,Assets.optionSizeY, Color.WHITE);
-		g.drawString(""+nbCoups, Assets.resX/2,Assets.optionSizeY/2+Assets.optionStartY, Assets.paint);
+		//g.drawString(""+nbCoups, Assets.resX/2,Assets.optionSizeY/2+Assets.optionStartY, Assets.paint);
 		plateau.paint(g);
 		topbar.paint(g);
 		if(mode==Etat.ANNONCE){

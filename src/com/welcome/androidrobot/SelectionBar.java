@@ -5,6 +5,8 @@ import java.util.Vector;
 import com.welcome.framework.Graphics;
 import com.welcome.framework.implementation.Event;
 
+import android.graphics.Color;
+
 public class SelectionBar {
 	
 	public Bouton[] boutons = new Bouton[4];
@@ -48,6 +50,7 @@ public class SelectionBar {
 	}
 	
 	public void paint(Graphics g){
+		g.fillRect(0, Assets.optionStartY, Assets.resX, Assets.optionSizeY,Color.BLACK);
 		for(int i=0; i<boutons.length; i++){
 			boutons[i].paint(g);
 		}
