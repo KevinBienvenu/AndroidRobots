@@ -30,7 +30,7 @@ public abstract class Bouton {
 		} else {
 			g.fillRect(x, y, sizeX, sizeY, Color.DKGRAY);
 		}
-		g.drawString(string, x+sizeX/2, y+sizeY/2, Assets.paint);
+		g.drawString(string, x+sizeX/2, y+2*sizeY/3, Assets.paint);
 	}
 	
 	public void update(List<TouchEvent> events){
@@ -42,9 +42,8 @@ public abstract class Bouton {
 				}
 			}
 			if(e.type==TouchEvent.TOUCH_UP){
-				System.out.println("philippe");
 				if(e.x>x && e.x<x+sizeX && e.y>y && e.y<y+sizeY){
-					
+					this.callback();
 				}
 				touchDown = false;
 			}

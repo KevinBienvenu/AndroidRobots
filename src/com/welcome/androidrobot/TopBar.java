@@ -25,7 +25,7 @@ public class TopBar {
 				partie.reset();
 			}
 		};
-		boutons[2] = new Bouton(3*Assets.resX/4,0,Assets.resX/4,Assets.barSizeY,"Reset"){
+		boutons[2] = new Bouton(3*Assets.resX/4,0,Assets.resX/4,Assets.barSizeY,"Menu"){
 			@Override
 			public void callback() {
 				
