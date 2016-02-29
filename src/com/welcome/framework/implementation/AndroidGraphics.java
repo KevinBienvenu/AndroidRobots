@@ -121,6 +121,21 @@ public class AndroidGraphics implements Graphics {
     }
     
     @Override
+    public void fillArc(int x, int y, int width, int height, int startAngle, int angle, int color, int alpha) {
+        paint.setColor(color);
+        paint.setStyle(Style.FILL);
+        canvas.drawArc(new RectF(x, y, x + width - 1, y + height - 1), startAngle, angle, true, paint);
+    }
+    
+    @Override
+    public void fillOval(int x, int y, int width, int height, int color, int alpha) {
+        paint.setColor(color);
+        paint.setAlpha(alpha);
+        paint.setStyle(Style.FILL);
+        canvas.drawOval(new RectF(x, y, x + width - 1, y + height - 1), paint);
+    }
+    
+    @Override
     public void drawARGB(int a, int r, int g, int b) {
         paint.setStyle(Style.FILL);
        canvas.drawARGB(a, r, g, b);

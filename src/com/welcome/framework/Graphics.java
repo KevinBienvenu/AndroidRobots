@@ -21,6 +21,10 @@ public interface Graphics {
 	public void drawOval(int x, int y, int width, int height, int color);
 	
 	public void fillOval(int x, int y, int width, int height, int color);
+	
+	public void fillOval(int x, int y, int width, int height, int color, int alpha);
+	
+	public void fillArc(int x, int y, int width, int height, int startAngle, int angle, int color, int alpha);
 
 	public void drawImage(Image image, int x, int y, int srcX, int srcY,
 			int srcWidth, int srcHeight);
