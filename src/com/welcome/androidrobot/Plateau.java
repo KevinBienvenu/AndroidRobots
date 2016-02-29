@@ -137,10 +137,14 @@ public class Plateau {
 							pion.jPrecedent.add(pion.j);
 						}
 						this.partie.nbCoups++;
-						if(partie.nbCoups>partie.annonce){
+						if(partie.nbCoups>partie.annonce ){
 							partie.succes = false;
 							partie.mode = Etat.REINIT;
 						}
+						if(partie.objectifVerifie() ){
+							partie.succes = false;
+							partie.mode = Etat.REINIT;
+						}	
 					}
 				}
 				// SELECTION
