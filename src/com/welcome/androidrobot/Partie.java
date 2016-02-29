@@ -176,6 +176,7 @@ public class Partie extends Screen{
         plateau.paint(g);
 		
 	}
+	
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
