@@ -1,7 +1,6 @@
 package com.welcome.androidrobot;
 
 import com.welcome.framework.Graphics;
-import com.welcome.framework.Input;
 import com.welcome.framework.Input.TouchEvent;
 
 public class Partie {
