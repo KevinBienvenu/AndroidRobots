@@ -21,6 +21,10 @@ public class Pion {
 	}
 	
 	public void revenirEnArriere(){
+		i = iPrecedent.lastElement();
+		j = jPrecedent.lastElement();
+		jPrecedent.remove(jPrecedent.size()-1);
+		iPrecedent.remove(iPrecedent.size()-1);
 		
 	}
 	public void paint(Graphics g){
@@ -36,5 +40,6 @@ public class Pion {
 	
 	public void deplacer(int dir){
 		//TODO : Philippe
+		
 	}
 }
