@@ -11,7 +11,7 @@ public class Plateau {
 	public Partie partie;
 
 	public Case[][] cases = new Case[Assets.nLignes][Assets.nColonnes];
-	public Pion[] pions = new Pion[5];
+	public Pion[] pions = new Pion[Assets.nbPions];
 
 	//ANIMATION
 	int charge = 0;
@@ -26,6 +26,19 @@ public class Plateau {
 		}
 		for(int i=0; i<5; i++){
 			pions[i].paint(g);
+		}
+	}
+	
+	public void paintSymbole(Graphics g){
+		Case c;
+		for(int i=0; i<Assets.nLignes; i++){
+			for(int j=0; j<Assets.nColonnes; j++){
+				c = cases[i][j];
+				c.paintSymbole(g);
+				if(partie.objectifCourant.idSymbole==c.symbole){
+					g.drawRect(c.x+1, c.y+1, Assets.tailleCase-2, Assets.tailleCase-2, partie.objectifCourant.couleur);
+				}
+			}
 		}
 	}
 
@@ -50,7 +63,7 @@ public class Plateau {
 		for(Pion p : this.pions){
 			cases[p.i][p.j].estOccupe = true;
 		}
-		for(int i=1; i<=Math.max(8, Assets.symboles.size()); i++){
+		for(int i=1; i<=Assets.nbSymboles; i++){
 			b = true;
 			while(b){
 				k = (int) (Math.random()*(Assets.nLignes));
@@ -145,20 +158,20 @@ public class Plateau {
 		}
 		//on banalise les cases du milieu
 		// haut
-		cases[milieu-2][milieu-1].murs[3] = true;
-		cases[milieu-2][milieu].murs[3] = true;
-		cases[milieu-2][milieu+1].murs[3] = true;
+		cases[milieu-1][milieu-1].murs[1] = true;
+		cases[milieu-1][milieu].murs[1] = true;
+		cases[milieu-1][milieu+1].murs[1] = true;
 		// bas
-		cases[milieu+2][milieu-1].murs[1] = true;
-		cases[milieu+2][milieu].murs[1] = true;
-		cases[milieu+2][milieu+1].murs[1] = true;
+		cases[milieu+1][milieu-1].murs[3] = true;
+		cases[milieu+1][milieu].murs[3] = true;
+		cases[milieu+1][milieu+1].murs[3] = true;
 		// gauche
-		cases[milieu+1][milieu-2].murs[0] = true;
-		cases[milieu][milieu-2].murs[0] = true;
-		cases[milieu-1][milieu-2].murs[0] = true;
+		cases[milieu+1][milieu-1].murs[2] = true;
+		cases[milieu][milieu-1].murs[2] = true;
+		cases[milieu-1][milieu-1].murs[2] = true;
 		// droite
-		cases[milieu+1][milieu+2].murs[2] = true;
-		cases[milieu][milieu+2].murs[2] = true;
-		cases[milieu-1][milieu+2].murs[2] = true;
+		cases[milieu+1][milieu+1].murs[0] = true;
+		cases[milieu][milieu+1].murs[0] = true;
+		cases[milieu-1][milieu+1].murs[0] = true;
 	}
 }

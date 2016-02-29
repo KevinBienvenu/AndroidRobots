@@ -30,6 +30,7 @@ public class LoadingScreen extends Screen {
         Assets.symboles.add(g.newImage("eta.png", ImageFormat.ARGB4444));
         Assets.symboles.add(g.newImage("zeta.png", ImageFormat.ARGB4444));
         Assets.symboles.add(g.newImage("theta.png", ImageFormat.ARGB4444));
+        Assets.nbSymboles = Assets.symboles.size();
         Assets.click = game.getAudio().createSound("explode.ogg");
         game.setScreen(new MainMenuScreen(game));
     }

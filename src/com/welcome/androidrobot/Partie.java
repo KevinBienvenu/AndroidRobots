@@ -37,9 +37,22 @@ public class Partie extends Screen{
 		topbar = new TopBar(this);
 		bottomBar = new BottomBar(this);
 		selectionBar = new SelectionBar(this);
+		this.tirerObjectif();
 	}
 	public void tirerObjectif(){
-
+		Objectif o = new Objectif();
+		if(this.objectifCourant!=null){
+			while(o.idPion==objectifCourant.idPion || o.idSymbole == objectifCourant.idSymbole){
+				o = new Objectif();
+			}
+		}
+		this.objectifCourant = o;
+	}
+	
+	public boolean objectifVerifie(){
+		int i = plateau.pions[objectifCourant.idPion].i;
+		int j = plateau.pions[objectifCourant.idPion].j;
+		return plateau.cases[i][j].symbole==objectifCourant.idSymbole;
 	}
 
 	public boolean deplacer(Pion p , int dir){
@@ -208,6 +221,16 @@ public class Partie extends Screen{
 		} else {
 			bottomBar.paint(g);
 		}
+		this.paintObjectif(g);
+		plateau.paintSymbole(g);
+	}
+	
+	public void paintObjectif(Graphics g){
+		Case c = plateau.cases[Assets.nColonnes/2-1][Assets.nColonnes/2-1];
+		g.fillRect(c.x, c.y, Assets.tailleCase*3, Assets.tailleCase*3, Color.BLACK);
+		g.drawRect(c.x, c.y, Assets.tailleCase*3, Assets.tailleCase*3, Color.DKGRAY);
+		g.fillOval(c.x+Assets.tailleCase/2, c.y+Assets.tailleCase/2, Assets.tailleCase*2, Assets.tailleCase*2, objectifCourant.couleur);
+		g.drawImage(Assets.symboles.get(objectifCourant.idSymbole-1), c.x+Assets.tailleCase/2, c.y+Assets.tailleCase/2, Assets.tailleCase*2);
 	}
 
 	@Override

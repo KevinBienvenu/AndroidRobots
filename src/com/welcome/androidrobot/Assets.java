@@ -15,6 +15,9 @@ public class Assets {
 	public static int resY;
 	public static int tolerance=3;
 	public static int remainingTime = 30;
+	public static int nbPions = 5;
+	public static int nbSymboles = 8;
+	
 	// GameScreen
 	public static int barSizeY;
 	public static int barStartY;
