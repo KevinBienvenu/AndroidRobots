@@ -30,7 +30,6 @@ public class Case {
 		// Si symbole = 0 pas de symboles;
 	}
 	public boolean peutDeplacer(int dir){
-		System.out.println(!estOccupe + " " +!murs[(dir+2)%4]);
 		return !estOccupe && !murs[(dir+2)%4]; 
 	}
 	public void paint(Graphics g){
