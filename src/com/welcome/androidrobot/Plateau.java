@@ -13,11 +13,11 @@ public class Plateau {
 	public Case[][] cases = new Case[Assets.nLignes][Assets.nColonnes];
 	public Pion[] pions = new Pion[5];
 
-    //ANIMATION
-    int charge = 0;
-    int directionDeplacement = 0;
-    boolean deplacement = false;
-    
+	//ANIMATION
+	int charge = 0;
+	int directionDeplacement = 0;
+	boolean deplacement = false;
+
 	public void paint(Graphics g){
 		for(int i=0; i<Assets.nLignes; i++){
 			for(int j=0; j<Assets.nColonnes; j++){
@@ -31,47 +31,32 @@ public class Plateau {
 
 	public Plateau(Partie partie){
 		this.partie = partie;
-		boolean[] murs = new boolean[4];
 		boolean b = true;
+		this.initializeMur();
 		int k=0,l=0;
 		for(int i=0; i<5; i++){
 			b = true;
 			while(b){
-				b = false;
 				k = (int) (Math.random()*Assets.nColonnes);
 				l = (int) (Math.random()*Assets.nLignes);
+				b = cases[k][l].active;
 				for(int j = 0; j<i; j++){
 					b = b || (pions[j].i==k && pions[j].j==l);
 				}
 			}
 			pions[i] = new Pion(k,l,i);
 		}
-		for(int i=0; i<Assets.nLignes; i++){
-			for(int j=0; j<Assets.nColonnes; j++){
-				murs = new boolean[4];
-				murs[0] = j==Assets.nColonnes-1;
-				murs[1] = i==0;
-				murs[2] = j==0;
-				murs[3] = i==Assets.nLignes-1;
-				cases[i][j] = new Case(i,j,murs,0);
-			}
-		}
-		for(int i=0; i<Assets.nbMur; i++){
-			k = (int) (Math.random()*(Assets.nLignes));
-			l = (int) (1+Math.random()*(Assets.nColonnes-1));
-			cases[k][l].murs[2] = true;
-			cases[k][l-1].murs[0] = true;
-			k = (int) (1+Math.random()*(Assets.nLignes-1));
-			l = (int) (Math.random()*(Assets.nColonnes));
-			cases[k][l].murs[1] = true;
-			cases[k-1][l].murs[3] = true;
-		}
+
 		for(Pion p : this.pions){
 			cases[p.i][p.j].estOccupe = true;
 		}
 		for(int i=1; i<=Math.max(8, Assets.symboles.size()); i++){
-			k = (int) (Math.random()*(Assets.nLignes));
-			l = (int) (Math.random()*(Assets.nColonnes));
+			b = true;
+			while(b){
+				k = (int) (Math.random()*(Assets.nLignes));
+				l = (int) (Math.random()*(Assets.nColonnes));
+				b = cases[k][l].active || cases[k][l].estOccupe;
+			}
 			if(cases[k][l].symbole==0){
 				cases[k][l].symbole = i;
 			}
@@ -122,4 +107,49 @@ public class Plateau {
 		}
 	}
 
+	public void initializeMur(){
+		boolean[] murs = new boolean[4];
+		int milieu = Assets.nColonnes/2;
+		for(int i=0; i<Assets.nLignes; i++){
+			for(int j=0; j<Assets.nColonnes; j++){
+				murs = new boolean[4];
+				murs[0] = j==Assets.nColonnes-1;
+				murs[1] = i==0;
+				murs[2] = j==0;
+				murs[3] = i==Assets.nLignes-1;
+				cases[i][j] = new Case(i,j,murs,0);
+				if(i>milieu-2 && i<milieu+2 && j>milieu-2 && j<milieu+2){
+					cases[i][j].active = true;
+				}
+			}
+		}
+		int k=0,l=0;
+		for(int i=0; i<Assets.nbMur; i++){
+			k = (int) (Math.random()*(Assets.nLignes));
+			l = (int) (1+Math.random()*(Assets.nColonnes-1));
+			cases[k][l].murs[2] = true;
+			cases[k][l-1].murs[0] = true;
+			k = (int) (1+Math.random()*(Assets.nLignes-1));
+			l = (int) (Math.random()*(Assets.nColonnes));
+			cases[k][l].murs[1] = true;
+			cases[k-1][l].murs[3] = true;
+		}
+		//on banalise les cases du milieu
+		// haut
+		cases[milieu-2][milieu-1].murs[3] = true;
+		cases[milieu-2][milieu].murs[3] = true;
+		cases[milieu-2][milieu+1].murs[3] = true;
+		// bas
+		cases[milieu+2][milieu-1].murs[1] = true;
+		cases[milieu+2][milieu].murs[1] = true;
+		cases[milieu+2][milieu+1].murs[1] = true;
+		// gauche
+		cases[milieu+1][milieu-2].murs[0] = true;
+		cases[milieu][milieu-2].murs[0] = true;
+		cases[milieu-1][milieu-2].murs[0] = true;
+		// droite
+		cases[milieu+1][milieu+2].murs[2] = true;
+		cases[milieu][milieu+2].murs[2] = true;
+		cases[milieu-1][milieu+2].murs[2] = true;
+	}
 }
