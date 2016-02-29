@@ -13,7 +13,7 @@ import android.view.WindowManager;
 public class Robots extends AndroidGame {
     @Override
     public Screen getInitScreen() {
-    	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     	this.initScreenSize();
         return new LoadingScreen(this);
     }
@@ -51,6 +51,8 @@ public class Robots extends AndroidGame {
 //        Assets.resX = Math.max(x,y);
         Assets.resX = Math.min(x,y);
         Assets.resY = Math.max(x,y);
+        
+        Assets.tailleCase = Assets.resX / Assets.nColonnes;
 
     	Assets.barSizeY = Assets.resY/15;
     	Assets.barStartY = 0;

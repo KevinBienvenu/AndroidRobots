@@ -1,10 +1,14 @@
 package com.welcome.androidrobot;
 
+import com.welcome.framework.Game;
 import com.welcome.framework.Graphics;
 import com.welcome.framework.Input.TouchEvent;
 
-public class Partie {
-	static Robots main;
+import android.graphics.Color;
+
+import com.welcome.framework.Screen;
+
+public class Partie extends Screen{
 	int compteur ;
 	long timer;
 	Plateau plateau;
@@ -12,40 +16,14 @@ public class Partie {
 	Pion pionSelectionne;
 	Case caseSelectionne;
 	
-	public Partie(){
+	public Partie(Game game) {
+        super(game);
 		plateau = new Plateau();
 	}
 	public void tirerObjectif(){
 		
 	}
-	public void paint(Graphics g){
-		
-		//TODO : GIlles
-	}
 	
-	public void update(){
-		
-		for(TouchEvent e : main.getInput().getTouchEvents()){
-			if(e.type==TouchEvent.TOUCH_DRAGGED){
-				
-			}
-			if(e.type==TouchEvent.TOUCH_DOWN){
-				//SELECTION
-				caseSelectionne = selection(e.x,e.y);
-				if(this.pionSelectionne==null){
-					pionSelectionne = avoirPion(caseSelectionne);
-				}
-				
-			}
-			if(e.type==TouchEvent.TOUCH_UP){
-				Case c = selection(e.x,e.y);
-				int dir = calculerDirection(c);
-				deplacer(this.pionSelectionne,dir);
-				pionSelectionne = null;
-				caseSelectionne = null;
-			}
-		}
-	}
 	
 	public void deplacer(Pion p , int dir){
 		plateau.cases[p.i][p.j].estOccupe = false;
@@ -125,5 +103,61 @@ public class Partie {
 			}
 		}
 		return null;
+	}
+	@Override
+	public void update(float deltaTime) {
+		for(TouchEvent e : game.getInput().getTouchEvents()){
+			if(e.type==TouchEvent.TOUCH_DRAGGED){
+				
+			}
+			if(e.type==TouchEvent.TOUCH_DOWN){
+				//SELECTION
+				caseSelectionne = selection(e.x,e.y);
+				if(this.pionSelectionne==null){
+					pionSelectionne = avoirPion(caseSelectionne);
+				}
+				
+			}
+			if(e.type==TouchEvent.TOUCH_UP){
+				if(pionSelectionne==null){
+					return;
+				}
+				Case c = selection(e.x,e.y);
+				int dir = calculerDirection(c);
+				deplacer(this.pionSelectionne,dir);
+				pionSelectionne = null;
+				caseSelectionne = null;
+			}
+		}
+	}
+	@Override
+	public void paint(float deltaTime) {
+		Graphics g = game.getGraphics();
+        g.fillRect(0, 0, Assets.resX, Assets.resY, Color.DKGRAY);
+        g.fillRect(0, Assets.barStartY, Assets.resX, Assets.barSizeY, Color.BLACK);
+        g.drawRect(0, Assets.barStartY, Assets.resX, Assets.barSizeY, Color.WHITE);
+        g.drawRect(0, Assets.optionStartY, Assets.resX, Assets.optionSizeY, Color.WHITE);
+        plateau.paint(g);
+		
+	}
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void backButton() {
+		// TODO Auto-generated method stub
+		
 	}
 }
