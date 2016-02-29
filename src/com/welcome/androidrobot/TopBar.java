@@ -1,9 +1,9 @@
 package com.welcome.androidrobot;
 
-import java.util.List;
+import java.util.Vector;
 
 import com.welcome.framework.Graphics;
-import com.welcome.framework.Input.TouchEvent;
+import com.welcome.framework.implementation.Event;
 
 public class TopBar {
 	
@@ -39,7 +39,7 @@ public class TopBar {
 		}
 	}
 	
-	public void update(List<TouchEvent> events){
+	public void update(Vector<Event> events){
 		for(int i=0; i<boutons.length; i++){
 			boutons[i].update(events);
 		}

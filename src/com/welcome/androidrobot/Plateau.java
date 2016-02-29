@@ -1,11 +1,17 @@
 package com.welcome.androidrobot;
 
+import java.util.Vector;
+
 import com.welcome.framework.Graphics;
+import com.welcome.framework.implementation.Event;
 
 public class Plateau {
 
+	public Partie partie;
+	
 	public Case[][] cases = new Case[Assets.nLignes][Assets.nColonnes];
 	public Pion[] pions = new Pion[5];
+	
 	public void paint(Graphics g){
 		for(int i=0; i<Assets.nLignes; i++){
 			for(int j=0; j<Assets.nColonnes; j++){
@@ -17,7 +23,8 @@ public class Plateau {
 		}
 	}
 
-	public Plateau(){
+	public Plateau(Partie partie){
+		this.partie = partie;
 		boolean[] murs = new boolean[4];
 		boolean b = true;
 		int k=0,l=0;
@@ -58,8 +65,28 @@ public class Plateau {
 		}
 	}
 
-	public void update(){
-
+	public void update(Vector<Event> events){
+		for(Event e : events){
+			if(e.isDown){
+				//SELECTION
+				partie.caseSelectionne = partie.selection(e.x,e.y);
+				if(this.partie.pionSelectionne==null){
+					partie.pionSelectionne = partie.avoirPion(partie.caseSelectionne);
+				}
+			}
+			if(e.isUp){
+				if(partie.pionSelectionne==null){
+					return;
+				}
+				Case c = partie.selection(e.x,e.y);
+				if(c!=null){
+					int dir = partie.calculerDirection(c);
+					partie.deplacer(partie.pionSelectionne,dir);
+					partie.pionSelectionne = null;
+					partie.caseSelectionne = null;
+				}
+			}
+		}
 	}
 
 }

@@ -25,7 +25,7 @@ public class Partie extends Screen{
 
 	public Partie(Game game) {
 		super(game);
-		plateau = new Plateau();
+		plateau = new Plateau(this);
 		topbar = new TopBar(this);
 
 	}
@@ -122,7 +122,7 @@ public class Partie extends Screen{
 		return 0;
 
 	}
-	private Pion avoirPion(Case c){
+	Pion avoirPion(Case c){
 		if(c==null){
 			return null;
 		}
@@ -137,7 +137,7 @@ public class Partie extends Screen{
 		}
 		return closest;
 	}
-	private Case selection(int x, int y) {
+	Case selection(int x, int y) {
 
 		for(Case[] lignes : plateau.cases){
 			for(Case c : lignes){
@@ -154,32 +154,11 @@ public class Partie extends Screen{
 	public void update(float deltaTime) {
 		List<TouchEvent> listEvents = game.getInput().getTouchEvents();
 		Vector<Event> events = new Vector<Event>();
-		this.topbar.update(listEvents);
-		for(TouchEvent e : listEvents){
-			if(e.type==TouchEvent.TOUCH_DRAGGED){
-				
-			}
-			if(e.type==TouchEvent.TOUCH_DOWN){
-				//SELECTION
-				caseSelectionne = selection(e.x,e.y);
-				if(this.pionSelectionne==null){
-					pionSelectionne = avoirPion(caseSelectionne);
-				}
-
-			}
-			if(e.type==TouchEvent.TOUCH_UP){
-				if(pionSelectionne==null){
-					return;
-				}
-				Case c = selection(e.x,e.y);
-				if(c!=null){
-					int dir = calculerDirection(c);
-					deplacer(this.pionSelectionne,dir);
-					pionSelectionne = null;
-					caseSelectionne = null;
-				}
-			}
+		for(TouchEvent t : listEvents){
+			events.add(new Event(t));
 		}
+		this.topbar.update(events);
+		this.plateau.update(events);
 	}
 
 	@Override

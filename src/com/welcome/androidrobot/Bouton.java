@@ -1,9 +1,11 @@
 package com.welcome.androidrobot;
 
 import java.util.List;
+import java.util.Vector;
 
 import com.welcome.framework.Graphics;
 import com.welcome.framework.Input.TouchEvent;
+import com.welcome.framework.implementation.Event;
 
 import android.graphics.Color;
 
@@ -33,15 +35,15 @@ public abstract class Bouton {
 		g.drawString(string, x+sizeX/2, y+2*sizeY/3, Assets.paint);
 	}
 	
-	public void update(List<TouchEvent> events){
-		for(TouchEvent e : events){
-			if(e.type==TouchEvent.TOUCH_DOWN){
+	public void update(Vector<Event> events){
+		for(Event e : events){
+			if(e.isDown){
 				//SELECTION
 				if(e.x>x && e.x<x+sizeX && e.y>y && e.y<y+sizeY){
 					touchDown = true;
 				}
 			}
-			if(e.type==TouchEvent.TOUCH_UP){
+			if(e.isUp){
 				if(e.x>x && e.x<x+sizeX && e.y>y && e.y<y+sizeY){
 					this.callback();
 				}
