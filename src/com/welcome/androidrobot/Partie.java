@@ -214,6 +214,8 @@ public class Partie extends Screen{
 		}else if(mode==Etat.JOUER){
 			jouerBar.maj();
 			jouerBar.update(events);
+		}else if(mode == Etat.REINIT){
+			reinit();
 		}
 		this.plateau.update(events);
 	}

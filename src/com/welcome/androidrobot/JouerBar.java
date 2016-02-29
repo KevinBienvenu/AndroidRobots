@@ -28,7 +28,7 @@ public class JouerBar {
 	}
 	
 	public void maj(){
-		boutons[0].string = "Joueur : "+partie.joueurCourant;
+		boutons[0].string = "Joueur : "+partie.joueurCourant.nom;
 		boutons[1].string = "Restant : "+(partie.annonce-partie.nbCoups);
 	}
 	public void paint(Graphics g){
