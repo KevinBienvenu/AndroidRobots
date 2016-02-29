@@ -35,6 +35,12 @@ public class Pion {
 		iPrecedent.remove(iPrecedent.size()-1);
 		
 	}
+	public void reset(){
+		i = iPrecedent.firstElement();
+		j = jPrecedent.firstElement();
+		jPrecedent.clear();
+		iPrecedent.clear();
+	}
 	public void paint(Graphics g){
 		int x = Assets.tailleCase*j+(int)(Assets.tailleCase*(1f-Assets.ratioPion));
 		int y = Assets.boardStartY + i*Assets.tailleCase+(int)(Assets.tailleCase*(1f-Assets.ratioPion));

@@ -29,6 +29,9 @@ public class Case {
 		}
 		// Si symbole = 0 pas de symboles;
 	}
+	public boolean peutDeplacer(int dir){
+		return !estOccupe && murs[dir]; 
+	}
 	public void paint(Graphics g){
 		g.fillRect(x, y, taille, taille, couleur);
 		g.drawRect(x, y, taille, taille, Color.DKGRAY);

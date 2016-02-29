@@ -12,6 +12,7 @@ public class Assets {
 	public static boolean verticalScreen;
 	public static int resX;
 	public static int resY;
+	public static int tolerance=3;
 	
 	// GameScreen
 	public static int barSizeY;
