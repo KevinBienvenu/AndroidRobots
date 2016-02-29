@@ -16,7 +16,6 @@ public class Plateau {
 	
 	public void update(){
 		
-		
 	}
 
 }
