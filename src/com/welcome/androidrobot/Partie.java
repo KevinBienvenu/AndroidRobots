@@ -36,7 +36,7 @@ public class Partie extends Screen{
 	public void deplacer(Pion p , int dir){
 		plateau.cases[p.i][p.j].estOccupe = false;
 
-		boolean hasMoved = false;
+		boolean hasMoved = true;
 		//Memorisation des positions précédentes
 		for(Pion pion : plateau.pions){
 			pion.iPrecedent.add(pion.i);
