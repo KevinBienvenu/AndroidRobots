@@ -21,7 +21,7 @@ public class Plateau {
 
 	// SELECTION
 	public int chargeSelection = 0;
-	public static int maxChargeSelection = 15;
+	public static int maxChargeSelection = 5;
 
 	public void paint(Graphics g){
 		for(int i=0; i<Assets.nLignes; i++){
@@ -40,7 +40,13 @@ public class Plateau {
 			int y = Assets.boardStartY + p.i*Assets.tailleCase+(int)(Assets.tailleCase*(1f-Assets.ratioPion))+Assets.tailleCase/2;
 			int t = 2*Assets.tailleCase*chargeSelection/maxChargeSelection;
 			if(directionValide){
-				g.fillArc(x-t, y-t, 2*t, 2*t, directionDeplacement*90, 90,  p.couleur, 100);
+				switch(directionDeplacement){
+				case 0 : g.fillArc(x-t, y-t, 2*t, 2*t, -45, 90,  p.couleur, 100); break;
+				case 1 : g.fillArc(x-t, y-t, 2*t, 2*t, 215, 90,  p.couleur, 100); break;
+				case 2 : g.fillArc(x-t, y-t, 2*t, 2*t, 135, 90,  p.couleur, 100); break;
+				case 3 : g.fillArc(x-t, y-t, 2*t, 2*t, 45, 90,  p.couleur, 100); break;
+				default:
+				}
 			} else {
 				g.fillOval(x-t, y-t, 2*t, 2*t, p.couleur, 100);
 			}
@@ -116,13 +122,14 @@ public class Plateau {
 				if(c!=null && partie.pionSelectionne!=null){
 					directionDeplacement = partie.calculerDirection(c);
 					if((c.i-partie.pionSelectionne.i)*(c.i-partie.pionSelectionne.i)+
-							(c.j-partie.pionSelectionne.j)*(c.j-partie.pionSelectionne.j)>2*Assets.tailleCase){
+							(c.j-partie.pionSelectionne.j)*(c.j-partie.pionSelectionne.j)>=1){
 						directionValide = true;
 					} else {
 						directionValide = false;
 					}
 				}
 				if(e.isUp){
+					this.chargeSelection = 0;
 					if(partie.pionSelectionne==null){
 						return;
 					}
@@ -141,11 +148,12 @@ public class Plateau {
 							partie.mode = Etat.REINIT;
 						}
 					}
+					partie.pionSelectionne=null;
 				}
-				// SELECTION
-				if(partie.pionSelectionne!=null){
-					chargeSelection = Math.min(chargeSelection+1, maxChargeSelection);
-				}
+			}
+			// SELECTION
+			if(partie.pionSelectionne!=null){
+				chargeSelection = Math.min(chargeSelection+1, maxChargeSelection);
 			}
 
 		}
