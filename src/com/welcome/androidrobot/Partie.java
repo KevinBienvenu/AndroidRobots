@@ -29,9 +29,9 @@ public class Partie extends Screen{
 	int nbCoups = 0;
 	int annonce = 0;
 	Joueur[] joueurs = new Joueur[3];
-	
+	boolean firstTime;
 	boolean succes = false;
-	
+
 	public Partie(Game game) {
 		super(game);
 		String[] nom = new String[]{"Florian","Kevin","Callebouille"};
@@ -116,6 +116,8 @@ public class Partie extends Screen{
 		if(annonce==1){
 			mode = Etat.JOUER;
 		}
+		firstTime = false;
+		startTimer = System.nanoTime();
 	}
 
 	public void jouer(){
@@ -181,11 +183,14 @@ public class Partie extends Screen{
 			events.add(new Event(t));
 		}
 		//CALCULATE TIMER
-		long time = System.nanoTime();
-		remainingTime = (int)((time-startTimer)*1e-9);
-		if(remainingTime>=Assets.remainingTime){
-			mode = Etat.JOUER;
-		} 
+		if(!firstTime){
+			long time = System.nanoTime();
+			remainingTime = (int)((time-startTimer)*1e-9);
+			if(remainingTime>=Assets.remainingTime){
+				mode = Etat.JOUER;
+			} 
+		}
+
 		//Update bars
 		bottomBar.maj();
 		jouerBar.maj();
@@ -198,11 +203,16 @@ public class Partie extends Screen{
 			jouerBar.update(events);
 		}
 		this.plateau.update(events);
-
 	}
 	public void reinit(){
 		startTimer = System.nanoTime();
 		mode = Etat.REFLEXION;
+		firstTime = true;
+		if(succes){
+			this.joueurCourant.score++;
+		}else{
+			this.joueurCourant.score--;
+		}
 	}
 
 	@Override
