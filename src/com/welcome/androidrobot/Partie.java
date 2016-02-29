@@ -35,30 +35,30 @@ public class Partie extends Screen{
 			pion.iPrecedent.add(pion.i);
 			pion.jPrecedent.add(pion.j);
 		}
-		int iter = 0;
+		
 		if(dir==Direction.EST){
-			iter = p.j;
+			
 			while(p.j+1<plateau.cases.length && plateau.cases[p.i][p.j+1].peutDeplacer(dir)){
 				p.j++;
 				hasMoved = true;
 			}
 		}
 		else if(dir == Direction.OUEST){
-			iter = p.j;
+			
 			while(p.j-1>=0 && !plateau.cases[p.i][p.j-1].peutDeplacer(dir)){
 				p.j--;
 				hasMoved = true;
 			}
 		}
 		else if(dir == Direction.NORD){
-			iter = p.i;
+			
 			while(p.i-1>=0 && !plateau.cases[p.i-1][p.j].peutDeplacer(dir)){
 				p.i--;
 				hasMoved = true;
 			}
 		}
 		else if(dir == Direction.SUD){
-			iter = p.i;
+			
 			while(p.i+1<plateau.cases[0].length && !plateau.cases[p.i+1][p.j].peutDeplacer(dir)){
 				p.i++;
 				hasMoved = true;
