@@ -43,6 +43,16 @@ public class Plateau {
 				cases[i][j] = new Case(i,j,murs,0);
 			}
 		}
+		for(int i=0; i<Assets.nbMur; i++){
+			k = (int) (Math.random()*(Assets.nLignes));
+			l = (int) (1+Math.random()*(Assets.nColonnes-1));
+			cases[k][l].murs[2] = true;
+			cases[k][l-1].murs[0] = true;
+			k = (int) (1+Math.random()*(Assets.nLignes-1));
+			l = (int) (Math.random()*(Assets.nColonnes));
+			cases[k][l].murs[1] = true;
+			cases[k-1][l].murs[3] = true;
+		}
 	}
 
 	public void update(){

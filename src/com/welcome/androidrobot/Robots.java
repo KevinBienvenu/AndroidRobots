@@ -4,11 +4,12 @@ import com.welcome.framework.Screen;
 import com.welcome.framework.implementation.AndroidGame;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.WindowManager;
 
 public class Robots extends AndroidGame {
     @Override
@@ -60,6 +61,12 @@ public class Robots extends AndroidGame {
     	Assets.boardSizeY = Assets.resX;
     	Assets.optionStartY = Assets.boardStartY + Assets.boardSizeY;
     	Assets.optionSizeY = Assets.resY - Assets.optionStartY;
+    	
+
+        Assets.paint.setTextSize(60);
+        Assets.paint.setTextAlign(Paint.Align.CENTER);
+        Assets.paint.setAntiAlias(true);
+        Assets.paint.setColor(Color.WHITE);
     }
     
 }

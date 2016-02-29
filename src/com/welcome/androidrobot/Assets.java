@@ -3,6 +3,9 @@ package com.welcome.androidrobot;
 import com.welcome.framework.Image;
 import com.welcome.framework.Sound;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+
 public class Assets {
 	
 	// Variables
@@ -23,7 +26,11 @@ public class Assets {
 	public static int tailleCase;
 	public static float ratioPion = 0.8f;
 	public static float ratioMur = 0.1f;
+	public static int nbMur = 12;
 	public static float probaMur = 0.01f;
+	
+	// Police et paint
+	public static Paint paint = new Paint();
    
 	// Images
 

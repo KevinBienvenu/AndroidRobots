@@ -1,17 +1,21 @@
 package com.welcome.androidrobot;
 
+import java.util.List;
+
 import com.welcome.framework.Game;
 import com.welcome.framework.Graphics;
 import com.welcome.framework.Input.TouchEvent;
+import com.welcome.framework.Screen;
 
 import android.graphics.Color;
-
-import com.welcome.framework.Screen;
 
 public class Partie extends Screen{
 	int compteur ;
 	long timer;
+	
 	Plateau plateau;
+	TopBar topbar;
+	
 	Objectif objectifCourant;
 	Pion pionSelectionne;
 	Case caseSelectionne;
@@ -19,6 +23,8 @@ public class Partie extends Screen{
 	public Partie(Game game) {
         super(game);
 		plateau = new Plateau();
+		topbar = new TopBar(this);
+		
 	}
 	public void tirerObjectif(){
 		
@@ -104,9 +110,11 @@ public class Partie extends Screen{
 		}
 		return null;
 	}
+	
 	@Override
 	public void update(float deltaTime) {
-		for(TouchEvent e : game.getInput().getTouchEvents()){
+		List<TouchEvent> events = game.getInput().getTouchEvents();
+		for(TouchEvent e : events){
 			if(e.type==TouchEvent.TOUCH_DRAGGED){
 				
 			}
@@ -129,7 +137,9 @@ public class Partie extends Screen{
 				caseSelectionne = null;
 			}
 		}
+		this.topbar.update(events);
 	}
+	
 	@Override
 	public void paint(float deltaTime) {
 		Graphics g = game.getGraphics();
@@ -138,6 +148,7 @@ public class Partie extends Screen{
         g.drawRect(0, Assets.barStartY, Assets.resX, Assets.barSizeY, Color.WHITE);
         g.drawRect(0, Assets.optionStartY, Assets.resX, Assets.optionSizeY, Color.WHITE);
         plateau.paint(g);
+		topbar.paint(g);
 		
 	}
 	@Override
