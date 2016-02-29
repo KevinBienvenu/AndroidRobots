@@ -15,6 +15,7 @@ public class Partie extends Screen{
 	Objectif objectifCourant;
 	Pion pionSelectionne;
 	Case caseSelectionne;
+	int nbCoups = 0;
 	
 	public Partie(Game game) {
         super(game);
@@ -68,6 +69,7 @@ public class Partie extends Screen{
 			p.revenirEnArriere();
 			plateau.cases[p.i][p.j].estOccupe = true;
 		}
+		nbCoups--;
 	}
 	
 	public void reset(){
@@ -80,6 +82,7 @@ public class Partie extends Screen{
 			p.reset();
 			plateau.cases[p.i][p.j].estOccupe = true;
 		}
+		nbCoups = 0;
 	}
 	
 	public int calculerDirection(Case c){
