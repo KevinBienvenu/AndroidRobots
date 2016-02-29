@@ -69,6 +69,13 @@ public class Plateau {
 		for(Pion p : this.pions){
 			cases[p.i][p.j].estOccupe = true;
 		}
+		for(int i=1; i<=Math.max(8, Assets.symboles.size()); i++){
+			k = (int) (Math.random()*(Assets.nLignes));
+			l = (int) (Math.random()*(Assets.nColonnes));
+			if(cases[k][l].symbole==0){
+				cases[k][l].symbole = i;
+			}
+		}
 	}
 
 	public void update(Vector<Event> events){

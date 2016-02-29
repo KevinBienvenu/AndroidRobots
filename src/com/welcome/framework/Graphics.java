@@ -26,7 +26,9 @@ public interface Graphics {
 			int srcWidth, int srcHeight);
 
 	public void drawImage(Image Image, int x, int y);
-
+	
+	public void drawImage(Image Image, int x, int y, int finalSize);
+	
 	void drawString(String text, int x, int y, Paint paint);
 
 	public int getWidth();

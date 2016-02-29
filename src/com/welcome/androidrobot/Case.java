@@ -47,6 +47,9 @@ public class Case {
 		if(murs[3]){
 			g.fillRect(x, y+taille-(int) (taille*Assets.ratioMur), taille, (int) (taille*Assets.ratioMur), Color.BLACK);
 		}
+		if(symbole>0){
+			g.drawImage(Assets.symboles.get(symbole-1), x, y, Assets.tailleCase);
+		}
 	}
 	
 	public boolean estDansCase(int a, int b){
