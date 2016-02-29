@@ -44,6 +44,11 @@ public class Case {
 		}
 	}
 	
+	public boolean estDansCase(int a, int b){
+		return a>x && a<x+taille && b>y && b<y+taille;
+	}
+	
+	
 	public void update(){
 		
 		
