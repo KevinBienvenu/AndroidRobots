@@ -36,7 +36,7 @@ public class Partie extends Screen{
 	public void deplacer(Pion p , int dir){
 		plateau.cases[p.i][p.j].estOccupe = false;
 
-		boolean hasMoved = true;
+		boolean hasMoved = false;
 		//Memorisation des positions précédentes
 		for(Pion pion : plateau.pions){
 			pion.iPrecedent.add(pion.i);
@@ -74,6 +74,7 @@ public class Partie extends Screen{
 			nbCoups++;
 		}
 	}
+	
 	public void back(){
 		for(Case[] ca : plateau.cases){
 			for(Case c : ca){
@@ -110,16 +111,16 @@ public class Partie extends Screen{
 		if(Y>0 && Math.abs(Y)>Math.abs(X)){
 			return Direction.NORD;
 		}
-		if(Y<=0 && Math.abs(Y)>Math.abs(X)){
+		if(Y<0 && Math.abs(Y)>Math.abs(X)){
 			return Direction.SUD;
 		}
 		if(X>0 && Math.abs(Y)<=Math.abs(X)){
 			return Direction.EST;
 		}
-		if(X<=0 && Math.abs(Y)<=Math.abs(X)){
+		if(X<0 && Math.abs(Y)<=Math.abs(X)){
 			return Direction.OUEST;
 		}
-		return 0;
+		return -1;
 
 	}
 	private Pion avoirPion(Case c){
