@@ -11,6 +11,7 @@ public class Case {
 	public int symbole ;
 	public int x,y,taille;
 	public int couleur;
+	public boolean active;
 	
 	public Case(int i, int j, boolean[] murs,int symbole){
 		this.i = i;
@@ -21,9 +22,9 @@ public class Case {
 		y = i*Assets.tailleCase + Assets.boardStartY;
 		taille = Assets.tailleCase;
 		if((i+j)%2==0){
-			couleur = Color.rgb(50, 220, 240);
+			couleur = Color.rgb(110, 220, 240);
 		} else {
-			couleur = Color.rgb(50, 210, 250);
+			couleur = Color.rgb(110, 200, 250);
 		}
 		// Si symbole = 0 pas de symboles;
 	}

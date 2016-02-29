@@ -19,10 +19,11 @@ public class Assets {
 	public static int optionSizeY;
 	
 	// Plateau et Cases
-	public static int nColonnes = 11, nLignes = 11;
+	public static int nColonnes = 13, nLignes = 13;
 	public static int tailleCase;
 	public static float ratioPion = 0.8f;
 	public static float ratioMur = 0.1f;
+	public static float probaMur = 0.01f;
    
 	// Images
 
