@@ -34,17 +34,19 @@ public class SelectionBar {
 			public void callback() {
 				nbCoups++;
 				boutons[0].string ="Coups : "+nbCoups;
+				if(partie.annonce!=0 && nbCoups>=partie.annonce){
+					nbCoups = partie.annonce;
+				}
 			}
 		};
-		boutons[3] = new Bouton(0,Assets.optionStartY+2*Assets.optionSizeY/3,Assets.resX/4,Assets.optionSizeY/3,"OK"){
+		boutons[3] = new Bouton(0,Assets.optionStartY+2*Assets.optionSizeY/3,Assets.resX,Assets.optionSizeY/3,"OK"){
 			@Override
 			public void callback() {
 				partie.reprendre();
 			}
 		};
-
 	}
-
+	
 	public void paint(Graphics g){
 		for(int i=0; i<boutons.length; i++){
 			boutons[i].paint(g);

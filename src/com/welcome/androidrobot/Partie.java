@@ -17,27 +17,33 @@ public class Partie extends Screen{
 	int remainingTime;
 	//mode reflexion (0) ou annonce (1) (2) = jouer (3) = compter Score reinit
 	int mode  = 0;
+	Joueur joueurCourant = null;
 	Plateau plateau;
 	TopBar topbar;
 	BottomBar bottomBar;
 	SelectionBar selectionBar;
+	JouerBar jouerBar;
 	Objectif objectifCourant;
 	Pion pionSelectionne;
 	Case caseSelectionne;
 	int nbCoups = 0;
 	int annonce = 0;
 	Joueur[] joueurs = new Joueur[3];
+	boolean firstTime;
+	boolean succes = false;
 
 	public Partie(Game game) {
 		super(game);
+		String[] nom = new String[]{"Florian","Kevin","Callebouille"};
 		for(int i=0; i<3; i++){
-			joueurs[i] = new Joueur();
+			joueurs[i] = new Joueur(nom[i]);
 		}
 		plateau = new Plateau(this);
 		topbar = new TopBar(this);
 		bottomBar = new BottomBar(this);
 		selectionBar = new SelectionBar(this);
 		this.tirerObjectif();
+		jouerBar = new JouerBar(this);
 	}
 	public void tirerObjectif(){
 		Objectif o = new Objectif();
@@ -115,10 +121,16 @@ public class Partie extends Screen{
 	}
 	public void arreter(int idJoueur){
 		mode = Etat.ANNONCE;
+		joueurCourant = joueurs[idJoueur];
 	}
 	public void reprendre(){
 		mode= Etat.REFLEXION;
 		annonce = selectionBar.nbCoups;
+		if(annonce==1){
+			mode = Etat.JOUER;
+		}
+		firstTime = false;
+		startTimer = System.nanoTime();
 	}
 
 	public void jouer(){
@@ -184,26 +196,36 @@ public class Partie extends Screen{
 			events.add(new Event(t));
 		}
 		//CALCULATE TIMER
-		long time = System.nanoTime();
-		remainingTime = (int)((time-startTimer)*1e-9);
-		if(remainingTime>=Assets.remainingTime){
-			mode = Etat.JOUER;
-		} 
-		//Update bars
-		bottomBar.maj();
+		if(!firstTime){
+			long time = System.nanoTime();
+			remainingTime = (int)((time-startTimer)*1e-9);
+			if(remainingTime>=Assets.remainingTime){
+				mode = Etat.JOUER;
+			} 
+		}
 
+		//Update bars
 		this.topbar.update(events);
-		if(mode!=Etat.ANNONCE){
+		if(mode!=Etat.ANNONCE && mode!=Etat.JOUER){
+			bottomBar.maj();
 			bottomBar.update(events);
-		}else{
+		}else if(mode==Etat.ANNONCE){
 			selectionBar.update(events);
+		}else if(mode==Etat.JOUER){
+			jouerBar.maj();
+			jouerBar.update(events);
 		}
 		this.plateau.update(events);
-
 	}
 	public void reinit(){
 		startTimer = System.nanoTime();
 		mode = Etat.REFLEXION;
+		firstTime = true;
+		if(succes){
+			this.joueurCourant.score++;
+		}else{
+			this.joueurCourant.score--;
+		}
 	}
 
 	@Override
@@ -218,7 +240,9 @@ public class Partie extends Screen{
 		topbar.paint(g);
 		if(mode==Etat.ANNONCE){
 			selectionBar.paint(g);
-		} else {
+		} else if(mode==Etat.JOUER) {
+			jouerBar.paint(g);
+		}else{
 			bottomBar.paint(g);
 		}
 		this.paintObjectif(g);
