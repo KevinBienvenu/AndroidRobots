@@ -113,7 +113,7 @@ public class Plateau {
 
 				}
 				Case c = partie.selection(e.x,e.y);
-				if(c!=null){
+				if(c!=null && partie.pionSelectionne!=null){
 					directionDeplacement = partie.calculerDirection(c);
 					if((c.i-partie.pionSelectionne.i)*(c.i-partie.pionSelectionne.i)+
 							(c.j-partie.pionSelectionne.j)*(c.j-partie.pionSelectionne.j)>2*Assets.tailleCase){
