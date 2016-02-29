@@ -5,4 +5,8 @@ public class Joueur {
 	int score;
 	int annonceCourante;
 	String nom;
+	
+	public Joueur(String nom){
+		
+	}
 }

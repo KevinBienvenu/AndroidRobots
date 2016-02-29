@@ -36,7 +36,7 @@ public class SelectionBar {
 				boutons[0].string ="Coups : "+nbCoups;
 			}
 		};
-		boutons[3] = new Bouton(0,Assets.optionStartY+2*Assets.optionSizeY/3,Assets.resX/4,Assets.optionSizeY/3,"OK"){
+		boutons[3] = new Bouton(0,Assets.optionStartY+2*Assets.optionSizeY/3,Assets.resX,Assets.optionSizeY/3,"OK"){
 			@Override
 			public void callback() {
 				partie.reprendre();

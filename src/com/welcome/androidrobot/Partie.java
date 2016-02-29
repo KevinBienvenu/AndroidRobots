@@ -17,10 +17,12 @@ public class Partie extends Screen{
 	int remainingTime;
 	//mode reflexion (0) ou annonce (1) (2) = jouer (3) = compter Score reinit
 	int mode  = 0;
+	Joueur joueurCourant = null;
 	Plateau plateau;
 	TopBar topbar;
 	BottomBar bottomBar;
 	SelectionBar selectionBar;
+	JouerBar jouerBar;
 	Objectif objectifCourant;
 	Pion pionSelectionne;
 	Case caseSelectionne;
@@ -30,13 +32,15 @@ public class Partie extends Screen{
 
 	public Partie(Game game) {
 		super(game);
+		String[] nom = new String[]{"Florian","Kevin","Callebouille"};
 		for(int i=0; i<3; i++){
-			joueurs[i] = new Joueur();
+			joueurs[i] = new Joueur(nom[i]);
 		}
 		plateau = new Plateau(this);
 		topbar = new TopBar(this);
 		bottomBar = new BottomBar(this);
 		selectionBar = new SelectionBar(this);
+		jouerBar = new JouerBar(this);
 	}
 	public void tirerObjectif(){
 
@@ -178,12 +182,14 @@ public class Partie extends Screen{
 		} 
 		//Update bars
 		bottomBar.maj();
-
+		jouerBar.maj();
 		this.topbar.update(events);
-		if(mode!=Etat.ANNONCE){
+		if(mode!=Etat.ANNONCE && mode!=Etat.JOUER){
 			bottomBar.update(events);
-		}else{
+		}else if(mode==Etat.ANNONCE){
 			selectionBar.update(events);
+		}else if(mode==Etat.JOUER){
+			jouerBar.update(events);
 		}
 		this.plateau.update(events);
 
@@ -205,7 +211,9 @@ public class Partie extends Screen{
 		topbar.paint(g);
 		if(mode==Etat.ANNONCE){
 			selectionBar.paint(g);
-		} else {
+		} else if(mode==Etat.JOUER) {
+			jouerBar.paint(g);
+		}else{
 			bottomBar.paint(g);
 		}
 	}
