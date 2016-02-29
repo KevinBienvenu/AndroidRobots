@@ -102,19 +102,21 @@ public class Plateau {
 					if(c!=null){
 						directionDeplacement = partie.calculerDirection(c);
 						deplacement=true;
-						System.out.println("Deplacement activé vers "+directionDeplacement);
+						
 						cases[partie.pionSelectionne.i][partie.pionSelectionne.j].estOccupe = false;
 						//Memorisation des positions précédentes
 						for(Pion pion : pions){
 							pion.iPrecedent.add(pion.i);
 							pion.jPrecedent.add(pion.j);
 						}
+						this.partie.nbCoups++;
+						if(partie.nbCoups>=partie.annonce){
+							partie.succes = false;
+							partie.mode = Etat.REINIT;
+							partie.reinit();
+						}
 					}
-					this.partie.nbCoups++;
-					if(partie.nbCoups>partie.annonce){
-						partie.succes = false;
-						partie.mode = Etat.REINIT;
-					}
+
 				}
 			}
 
