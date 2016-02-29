@@ -36,6 +36,9 @@ public class Pion {
 		
 	}
 	public void reset(){
+		if(iPrecedent.size()==0){
+			return;
+		}
 		i = iPrecedent.firstElement();
 		j = jPrecedent.firstElement();
 		jPrecedent.clear();
