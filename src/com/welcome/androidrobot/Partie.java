@@ -221,7 +221,7 @@ public class Partie extends Screen{
 		firstTime = true;
 		annonce = 0;
 		nbCoups = 0;
-		if(succes){
+		if(objectifVerifie()){
 			this.joueurCourant.score++;
 		}else{
 			this.joueurCourant.score--;

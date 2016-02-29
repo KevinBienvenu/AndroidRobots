@@ -102,6 +102,7 @@ public class Plateau {
 	}
 
 	public void jouer(Vector<Event> events){
+
 		if(!deplacement){
 			for(Event e : events){
 				if(e.isDown){
@@ -159,8 +160,8 @@ public class Plateau {
 			}
 		}else if(charge<1){
 			charge++;
-
 		}
+
 	}
 
 	public void initializeMur(){
