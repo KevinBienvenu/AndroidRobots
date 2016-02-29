@@ -4,12 +4,14 @@ import com.welcome.framework.Graphics;
 
 public class Plateau {
 	
-	public static int nColonnes = 11, nLignes = 11;
-	public Case[][] cases = new Case[nLignes][nColonnes];
+	public Case[][] cases = new Case[Assets.nLignes][Assets.nColonnes];
 	public Pion[] pions = new Pion[4];
 	public void paint(Graphics g){
-		
-		//TODO : GIlles
+		for(int i=0; i<Assets.nLignes; i++){
+			for(int j=0; j<Assets.nColonnes; j++){
+				cases[i][j].paint(g);
+			}
+		}
 	}
 	
 	public void update(){

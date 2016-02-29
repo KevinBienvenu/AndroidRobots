@@ -24,8 +24,9 @@ public class Pion {
 		
 	}
 	public void paint(Graphics g){
+		int x = Assets.tailleCase*j+(int)(Assets.tailleCase*(1f-Assets.ratioPion));
+		int y = Assets.boardStartY + i*Assets.tailleCase+4;
 		
-		//TODO : GIlles
 	}
 	
 	public void update(){

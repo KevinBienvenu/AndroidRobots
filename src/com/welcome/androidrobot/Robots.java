@@ -13,7 +13,7 @@ import android.view.WindowManager;
 public class Robots extends AndroidGame {
     @Override
     public Screen getInitScreen() {
-    	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     	this.initScreenSize();
         return new LoadingScreen(this);
     }
@@ -24,8 +24,7 @@ public class Robots extends AndroidGame {
     }
     
     public void initScreenSize(){
-    	WindowManager w = getWindowManager();
-    	Display d = w.getDefaultDisplay();
+    	Display d = getWindowManager().getDefaultDisplay();
     	DisplayMetrics metrics = new DisplayMetrics();
     	int x, y;
     	d.getMetrics(metrics);
@@ -48,8 +47,17 @@ public class Robots extends AndroidGame {
     	    y = realSize.y;
     	} catch (Exception ignored) {
     	}
+//        Assets.resY = Math.min(x,y);
+//        Assets.resX = Math.max(x,y);
         Assets.resX = Math.min(x,y);
         Assets.resY = Math.max(x,y);
+
+    	Assets.barSizeY = Assets.resY/15;
+    	Assets.barStartY = 0;
+    	Assets.boardStartY = Assets.barSizeY;
+    	Assets.boardSizeY = Assets.resX;
+    	Assets.optionStartY = Assets.boardStartY + Assets.boardSizeY;
+    	Assets.optionSizeY = Assets.resY - Assets.optionStartY;
     }
     
 }
